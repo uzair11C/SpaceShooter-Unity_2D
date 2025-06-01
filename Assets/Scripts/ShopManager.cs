@@ -14,6 +14,9 @@ public class ShopManager : MonoBehaviour
 
     private UserData userData;
 
+    [SerializeField]
+    private PlaneDatabase planeDatabase;
+
     void Start()
     {
         LoadData();
@@ -32,6 +35,13 @@ public class ShopManager : MonoBehaviour
             userData = CreateDefaultUserData();
             SaveUserData();
         }
+
+        foreach (PlaneData plane in planeDatabase.allPlanes)
+        {
+            plane.isUnlocked = userData.ownedPlanes.Exists(ownedPlane =>
+                ownedPlane.planeName == plane.planeName
+            );
+        }
     }
 
     void SaveUserData()
@@ -46,7 +56,7 @@ public class ShopManager : MonoBehaviour
         foreach (Transform child in shopContainer)
             Destroy(child.gameObject);
 
-        foreach (PlaneData plane in userData.ownedPlanes)
+        foreach (PlaneData plane in planeDatabase.allPlanes)
         {
             GameObject cardObj = Instantiate(planeCardPrefab, shopContainer);
             PlaneCardUI cardUI = cardObj.GetComponent<PlaneCardUI>();
@@ -62,44 +72,7 @@ public class ShopManager : MonoBehaviour
             coins = 0,
             BGMusicOn = true,
             equippedPlaneName = "Triangle",
-            ownedPlanes = new List<PlaneData>
-            {
-                new PlaneData
-                {
-                    planeName = "Triangle",
-                    speed = 7f,
-                    gunsCount = 1,
-                    selectedSprite = "spaceShooterSpriteSheet(1)_0",
-                    isUnlocked = true,
-                    colorOptions = new List<PlaneColorOption>
-                    {
-                        new()
-                        {
-                            colorName = "Red",
-                            hexCode = "#FF0000",
-                            spriteName = "spaceShooterSpriteSheet(1)_3",
-                        },
-                        new()
-                        {
-                            colorName = "Blue",
-                            hexCode = "#0000FF",
-                            spriteName = "spaceShooterSpriteSheet(1)_0",
-                        },
-                        new()
-                        {
-                            colorName = "Green",
-                            hexCode = "#00FF00",
-                            spriteName = "spaceShooterSpriteSheet(1)_1",
-                        },
-                        new()
-                        {
-                            colorName = "Orange",
-                            hexCode = "#DE532C",
-                            spriteName = "spaceShooterSpriteSheet(1)_2",
-                        },
-                    },
-                },
-            },
+            ownedPlanes = new List<PlaneData> { planeDatabase.allPlanes[0] },
         };
     }
 }

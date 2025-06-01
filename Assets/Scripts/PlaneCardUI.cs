@@ -35,6 +35,7 @@ public class PlaneCardUI : MonoBehaviour
         planeData = data;
         this.userData = userData;
 
+        planeImage.sprite = data.selectedSprite;
         planeNameText.text = data.planeName;
         planeSpeed.value = data.speed;
         gunsCount.text = "Guns: " + data.gunsCount.ToString();
@@ -53,6 +54,7 @@ public class PlaneCardUI : MonoBehaviour
             btn.onClick.AddListener(() =>
             {
                 data.selectedSprite = color.spriteName;
+                // planeImage.sprite = data.selectedSprite;
                 Setup(data, userData, onUpdateUI); // Refresh
                 onUpdateUI?.Invoke();
             });
@@ -64,10 +66,12 @@ public class PlaneCardUI : MonoBehaviour
         buyBtn.onClick.RemoveAllListeners();
         buyBtn.onClick.AddListener(() =>
         {
-            if (userData.coins >= 100) // Example cost
+            if (userData.coins >= data.price) // Example cost
             {
-                userData.coins -= 100;
+                userData.coins -= data.price;
                 data.isUnlocked = true;
+                buyBtn.gameObject.SetActive(false);
+                equipBtn.gameObject.SetActive(true);
                 SaveGame(userData);
                 Setup(data, userData, onUpdateUI);
                 onUpdateUI?.Invoke();
@@ -83,7 +87,7 @@ public class PlaneCardUI : MonoBehaviour
         });
     }
 
-    void SaveGame(UserData data)
+    public void SaveGame(UserData data)
     {
         string json = JsonUtility.ToJson(data);
         PlayerPrefs.SetString("GameData", json);

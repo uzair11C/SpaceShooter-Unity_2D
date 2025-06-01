@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: PlaneDatabase
+  m_EditorClassIdentifier: Assembly-CSharp::PlaneDatabase
+  allPlanes:
+  - planeName: Triangle
+    speed: 7
+    gunsCount: 1
+    selectedSprite: {fileID: 1014392154, guid: cabdcd946246c4f4db88a94907f179cf, type: 3}
+    colorOptions:
+    - colorName: Blue
+      hexCode: '#0000FF'
+      spriteName: {fileID: 1974492190, guid: cabdcd946246c4f4db88a94907f179cf, type: 3}
+    - colorName: Green
+      hexCode: '#00FF00'
+      spriteName: {fileID: 1486994967, guid: cabdcd946246c4f4db88a94907f179cf, type: 3}
+    - colorName: Orange
+      hexCode: '#DE532C'
+      spriteName: {fileID: -896706959, guid: cabdcd946246c4f4db88a94907f179cf, type: 3}
+    - colorName: Red
+      hexCode: '#FF0000'
+      spriteName: {fileID: 1014392154, guid: cabdcd946246c4f4db88a94907f179cf, type: 3}
+    isUnlocked: 1
+    price: 0
+  - planeName: Arrow
+    speed: 9
+    gunsCount: 2
+    selectedSprite: {fileID: -1081679315, guid: cabdcd946246c4f4db88a94907f179cf, type: 3}
+    colorOptions:
+    - colorName: Blue
+      hexCode: '#0000FF'
+      spriteName: {fileID: -1081679315, guid: cabdcd946246c4f4db88a94907f179cf, type: 3}
+    - colorName: Green
+      hexCode: '#00FF00'
+      spriteName: {fileID: 338664112, guid: cabdcd946246c4f4db88a94907f179cf, type: 3}
+    - colorName: Orange
+      hexCode: '#DE532C'
+      spriteName: {fileID: 2136058435, guid: cabdcd946246c4f4db88a94907f179cf, type: 3}
+    - colorName: Red
+      hexCode: '#FF0000'
+      spriteName: {fileID: 251030162, guid: cabdcd946246c4f4db88a94907f179cf, type: 3}
+    isUnlocked: 0
+    price: 500
