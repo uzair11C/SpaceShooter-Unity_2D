@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class ShopManager : MonoBehaviour
 {
+    public static ShopManager Instance { get; private set; }
+
     [SerializeField]
     private GameObject planeCardPrefab;
 
@@ -16,6 +18,14 @@ public class ShopManager : MonoBehaviour
 
     [SerializeField]
     private PlaneDatabase planeDatabase;
+
+    [SerializeField]
+    private GameObject notEnoughCoinsDialog;
+
+    void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
@@ -74,5 +84,10 @@ public class ShopManager : MonoBehaviour
             equippedPlaneName = "Triangle",
             ownedPlanes = new List<PlaneData> { planeDatabase.allPlanes[0] },
         };
+    }
+
+    public void ShowNotEnoughCoinsDialog()
+    {
+        notEnoughCoinsDialog.SetActive(true);
     }
 }

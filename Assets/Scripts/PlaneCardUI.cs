@@ -25,6 +25,9 @@ public class PlaneCardUI : MonoBehaviour
     private Button buyBtn;
 
     [SerializeField]
+    private TextMeshProUGUI priceText;
+
+    [SerializeField]
     private Button equipBtn;
 
     private PlaneData planeData;
@@ -39,6 +42,7 @@ public class PlaneCardUI : MonoBehaviour
         planeNameText.text = data.planeName;
         planeSpeed.value = data.speed;
         gunsCount.text = "Guns: " + data.gunsCount.ToString();
+        priceText.text = data.price.ToString();
 
         foreach (Transform child in colorsPanel)
             Destroy(child.gameObject);
@@ -66,15 +70,20 @@ public class PlaneCardUI : MonoBehaviour
         buyBtn.onClick.RemoveAllListeners();
         buyBtn.onClick.AddListener(() =>
         {
-            if (userData.coins >= data.price) // Example cost
+            if (userData.coins >= data.price)
             {
                 userData.coins -= data.price;
                 data.isUnlocked = true;
                 buyBtn.gameObject.SetActive(false);
                 equipBtn.gameObject.SetActive(true);
+                userData.ownedPlanes.Add(data);
                 SaveGame(userData);
                 Setup(data, userData, onUpdateUI);
                 onUpdateUI?.Invoke();
+            }
+            else
+            {
+                ShopManager.Instance.ShowNotEnoughCoinsDialog();
             }
         });
 
@@ -82,7 +91,10 @@ public class PlaneCardUI : MonoBehaviour
         equipBtn.onClick.AddListener(() =>
         {
             userData.equippedPlaneName = data.planeName;
+            userData.equippedPlane = data;
+            equipBtn.GetComponentInChildren<TMP_Text>().text = "Equipped";
             SaveGame(userData);
+
             onUpdateUI?.Invoke();
         });
     }

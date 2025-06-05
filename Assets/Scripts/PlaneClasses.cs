@@ -28,5 +28,5 @@ public class PlaneDatabase : ScriptableObject
 {
     public List<PlaneData> allPlanes;
 
-    // public List<EnemyData> enemyPlanes;
+    public List<EnemyData> enemyPlanes;
 }

@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlaneDatabase
   allPlanes:
   - planeName: Triangle
-    speed: 7
+    speed: 6
     gunsCount: 1
-    selectedSprite: {fileID: 1014392154, guid: cabdcd946246c4f4db88a94907f179cf, type: 3}
+    selectedSprite: {fileID: 1974492190, guid: cabdcd946246c4f4db88a94907f179cf, type: 3}
     colorOptions:
-    - colorName: Blue
-      hexCode: '#0000FF'
+    - colorName: Light Blue
+      hexCode: '#36BBF5'
       spriteName: {fileID: 1974492190, guid: cabdcd946246c4f4db88a94907f179cf, type: 3}
     - colorName: Green
       hexCode: '#00FF00'
@@ -33,12 +33,12 @@ MonoBehaviour:
     isUnlocked: 1
     price: 0
   - planeName: Arrow
-    speed: 9
+    speed: 7
     gunsCount: 2
     selectedSprite: {fileID: -1081679315, guid: cabdcd946246c4f4db88a94907f179cf, type: 3}
     colorOptions:
-    - colorName: Blue
-      hexCode: '#0000FF'
+    - colorName: Light Blue
+      hexCode: '#36BBF5'
       spriteName: {fileID: -1081679315, guid: cabdcd946246c4f4db88a94907f179cf, type: 3}
     - colorName: Green
       hexCode: '#00FF00'
@@ -51,3 +51,57 @@ MonoBehaviour:
       spriteName: {fileID: 251030162, guid: cabdcd946246c4f4db88a94907f179cf, type: 3}
     isUnlocked: 0
     price: 500
+  - planeName: Box
+    speed: 7.5
+    gunsCount: 2
+    selectedSprite: {fileID: -1770994301, guid: cabdcd946246c4f4db88a94907f179cf, type: 3}
+    colorOptions:
+    - colorName: Light Blue
+      hexCode: '#36BBF5'
+      spriteName: {fileID: -977981794, guid: cabdcd946246c4f4db88a94907f179cf, type: 3}
+    - colorName: Green
+      hexCode: '#00FF00'
+      spriteName: {fileID: 402797976, guid: cabdcd946246c4f4db88a94907f179cf, type: 3}
+    - colorName: Orange
+      hexCode: '#DE532C'
+      spriteName: {fileID: 245544676, guid: cabdcd946246c4f4db88a94907f179cf, type: 3}
+    - colorName: Red
+      hexCode: '#FF0000'
+      spriteName: {fileID: -1770994301, guid: cabdcd946246c4f4db88a94907f179cf, type: 3}
+    isUnlocked: 0
+    price: 800
+  - planeName: Sriver
+    speed: 9
+    gunsCount: 3
+    selectedSprite: {fileID: 1620262949, guid: cabdcd946246c4f4db88a94907f179cf, type: 3}
+    colorOptions:
+    - colorName: Orange
+      hexCode: '#EE8900'
+      spriteName: {fileID: 1620262949, guid: cabdcd946246c4f4db88a94907f179cf, type: 3}
+    - colorName: Light Blue
+      hexCode: '#91C9E8'
+      spriteName: {fileID: 131024810, guid: cabdcd946246c4f4db88a94907f179cf, type: 3}
+    - colorName: Green
+      hexCode: '#45BF55'
+      spriteName: {fileID: -2137216494, guid: cabdcd946246c4f4db88a94907f179cf, type: 3}
+    - colorName: Red
+      hexCode: '#FF0000'
+      spriteName: {fileID: -1702854744, guid: cabdcd946246c4f4db88a94907f179cf, type: 3}
+    isUnlocked: 0
+    price: 1500
+  - planeName: Tenergy
+    speed: 7.5
+    gunsCount: 4
+    selectedSprite: {fileID: -463747670, guid: cabdcd946246c4f4db88a94907f179cf, type: 3}
+    colorOptions:
+    - colorName: Green
+      hexCode: '#45BF55'
+      spriteName: {fileID: 297076308, guid: cabdcd946246c4f4db88a94907f179cf, type: 3}
+    - colorName: Orange
+      hexCode: '#EE8900'
+      spriteName: {fileID: -463747670, guid: cabdcd946246c4f4db88a94907f179cf, type: 3}
+    - colorName: Red
+      hexCode: '#FF0000'
+      spriteName: {fileID: 2029881519, guid: cabdcd946246c4f4db88a94907f179cf, type: 3}
+    isUnlocked: 0
+    price: 2200

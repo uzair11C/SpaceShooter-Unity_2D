@@ -7,4 +7,5 @@ public class UserData
     public List<PlaneData> ownedPlanes = new List<PlaneData>();
     public bool BGMusicOn;
     public string equippedPlaneName;
+    public PlaneData equippedPlane;
 }
