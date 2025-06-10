@@ -19,6 +19,7 @@ public class PlaneData
     public List<PlaneColorOption> colorOptions = new();
     public bool isUnlocked;
     public int price;
+    public GameObject planePrefab;
 }
 
 public class EnemyData { }

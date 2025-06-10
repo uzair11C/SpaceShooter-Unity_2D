@@ -3,17 +3,12 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private GameManager gameManager;
-
-    [SerializeField]
-    private float xBoundary;
-
-    [SerializeField]
-    private float yBoundary;
-
-    [SerializeField]
+    private float xBoundary = 1.8f;
+    private float yBoundary = 4.1f;
     private float moveSpeed;
 
-    void Start() { }
+    [SerializeField]
+    private GameObject[] spawnPoints;
 
     // Update is called once per frame
     void Update()
