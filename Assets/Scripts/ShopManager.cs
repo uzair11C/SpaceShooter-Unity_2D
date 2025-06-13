@@ -29,6 +29,7 @@ public class ShopManager : MonoBehaviour
 
     void Start()
     {
+        // PlayerPrefs.DeleteKey("SpaceShooter_UserData"); // For testing, remove in production
         LoadData();
         PopulateShop();
     }
@@ -39,6 +40,8 @@ public class ShopManager : MonoBehaviour
         {
             string json = PlayerPrefs.GetString("SpaceShooter_UserData");
             userData = JsonUtility.FromJson<UserData>(json);
+            Debug.Log("User data: " + json);
+            Debug.Log(userData);
         }
         else
         {
@@ -56,8 +59,10 @@ public class ShopManager : MonoBehaviour
 
     void SaveUserData()
     {
+        Debug.Log("Saving user data: " + userData);
+        Debug.Log("User data: " + JsonUtility.ToJson(userData));
         string json = JsonUtility.ToJson(userData);
-        PlayerPrefs.SetString("GameData", json);
+        PlayerPrefs.SetString("SpaceShooter_UserData", json);
         PlayerPrefs.Save();
     }
 
@@ -83,6 +88,7 @@ public class ShopManager : MonoBehaviour
             BGMusicOn = true,
             equippedPlaneName = "Triangle",
             ownedPlanes = new List<PlaneData> { planeDatabase.allPlanes[0] },
+            equippedPlane = planeDatabase.allPlanes[0],
         };
     }
 

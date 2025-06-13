@@ -58,7 +58,6 @@ public class PlaneCardUI : MonoBehaviour
             btn.onClick.AddListener(() =>
             {
                 data.selectedSprite = color.spriteName;
-                // planeImage.sprite = data.selectedSprite;
                 Setup(data, userData, onUpdateUI); // Refresh
                 onUpdateUI?.Invoke();
             });
@@ -87,6 +86,8 @@ public class PlaneCardUI : MonoBehaviour
             }
         });
 
+        equipBtn.GetComponentInChildren<TMP_Text>().text =
+            userData.equippedPlaneName == data.planeName ? "Equipped" : "Equip";
         equipBtn.onClick.RemoveAllListeners();
         equipBtn.onClick.AddListener(() =>
         {
@@ -94,7 +95,7 @@ public class PlaneCardUI : MonoBehaviour
             userData.equippedPlane = data;
             equipBtn.GetComponentInChildren<TMP_Text>().text = "Equipped";
             SaveGame(userData);
-
+            Setup(data, userData, onUpdateUI);
             onUpdateUI?.Invoke();
         });
     }
@@ -102,7 +103,7 @@ public class PlaneCardUI : MonoBehaviour
     public void SaveGame(UserData data)
     {
         string json = JsonUtility.ToJson(data);
-        PlayerPrefs.SetString("GameData", json);
+        PlayerPrefs.SetString("SpaceShooter_UserData", json);
         PlayerPrefs.Save();
     }
 }
