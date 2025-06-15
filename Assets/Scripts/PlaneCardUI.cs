@@ -14,7 +14,7 @@ public class PlaneCardUI : MonoBehaviour
     private Slider planeSpeed;
 
     [SerializeField]
-    private TextMeshProUGUI gunsCount;
+    private Slider fireRate;
 
     [SerializeField]
     private Transform colorsPanel;
@@ -41,7 +41,7 @@ public class PlaneCardUI : MonoBehaviour
         planeImage.sprite = data.selectedSprite;
         planeNameText.text = data.planeName;
         planeSpeed.value = data.speed;
-        gunsCount.text = "Guns: " + data.gunsCount.ToString();
+        fireRate.value = 1f - data.fireRate;
         priceText.text = data.price.ToString();
 
         foreach (Transform child in colorsPanel)

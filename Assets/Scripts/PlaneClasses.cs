@@ -14,7 +14,7 @@ public class PlaneData
 {
     public string planeName;
     public float speed;
-    public int gunsCount;
+    public float fireRate;
     public Sprite selectedSprite;
     public List<PlaneColorOption> colorOptions = new();
     public bool isUnlocked;

@@ -6,48 +6,81 @@ public class PlayerController : MonoBehaviour
     private float xBoundary = 1.8f;
     private float yBoundary = 4.1f;
     private float moveSpeed;
+    private bool isSpecialActive = false;
+    private UserData userData;
+    private float fireRate;
+    private float nextFireTime;
 
     [SerializeField]
     private GameObject[] spawnPoints;
 
-    // Update is called once per frame
-    void Update()
+    [SerializeField]
+    private GameObject specialSpawnPoint;
+
+    [SerializeField]
+    private GameObject bullet;
+
+    [SerializeField]
+    private GameObject specialBullet;
+
+    void Awake()
+    {
+        if (PlayerPrefs.HasKey("SpaceShooter_UserData"))
+        {
+            string json = PlayerPrefs.GetString("SpaceShooter_UserData");
+            userData = JsonUtility.FromJson<UserData>(json);
+            moveSpeed = userData.equippedPlane.speed;
+            fireRate = userData.equippedPlane.fireRate;
+            nextFireTime = fireRate;
+        }
+    }
+
+    void U.9o87ydate()
     {
 #if UNITY_EDITOR
         if (Input.GetMouseButton(0))
         {
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePosition.z = 0f;
-            Vector3 targetPosition = Vector3.Lerp(
-                transform.position,
-                mousePosition,
-                moveSpeed * Time.deltaTime
-            );
-
-            // Clamp the final position
-            targetPosition.x = Mathf.Clamp(targetPosition.x, -xBoundary, xBoundary);
-            targetPosition.y = Mathf.Clamp(targetPosition.y, -yBoundary, yBoundary);
-
-            transform.position = targetPosition;
+            UpdateTouchPosition(Input.mousePosition);
         }
 #else
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
-            Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
-            touchPosition.z = 0f;
-            Vector3 targetPosition = Vector3.Lerp(
-                transform.position,
-                touchPosition,
-                moveSpeed * Time.deltaTime
-            );
-
-            // Clamp the final position
-            targetPosition.x = Mathf.Clamp(targetPosition.x, -xBoundary, xBoundary);
-            targetPosition.y = Mathf.Clamp(targetPosition.y, -yBoundary, yBoundary);
-
-            transform.position = targetPosition;
+            UpdateTouchPosition(touch);
         }
 #endif
+    }
+
+    private void UpdateTouchPosition(Vector3 position)
+    {
+        Vector3 touchPosition = Camera.main.ScreenToWorldPoint(position);
+        touchPosition.z = 0f;
+        Vector3 targetPosition = Vector3.Lerp(
+            transform.position,
+            touchPosition,
+            moveSpeed * Time.deltaTime
+        );
+
+        // Clamp the final position
+        targetPosition.x = Mathf.Clamp(targetPosition.x, -xBoundary, xBoundary);
+        targetPosition.y = Mathf.Clamp(targetPosition.y, -yBoundary, yBoundary);
+
+        transform.position = targetPosition;
+
+        nextFireTime -= Time.deltaTime;
+
+        if (nextFireTime <= 0)
+        {
+            foreach (var spawnPoint in spawnPoints)
+            {
+                FireBullet(spawnPoint, bullet);
+            }
+            nextFireTime = fireRate;
+        }
+    }
+
+    void FireBullet(GameObject spawnPoint, GameObject bulletPrefab)
+    {
+        Instantiate(bulletPrefab, spawnPoint.transform.position, Quaternion.identity);
     }
 }
