@@ -11,5 +11,9 @@ public class BulletScript : MonoBehaviour
     void Update()
     {
         rb.velocity = Vector2.up * 9;
+        if (transform.position.y > 5f)
+        {
+            Destroy(gameObject);
+        }
     }
 }

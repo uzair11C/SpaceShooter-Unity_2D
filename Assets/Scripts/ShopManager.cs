@@ -1,9 +1,13 @@
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ShopManager : MonoBehaviour
 {
     public static ShopManager Instance { get; private set; }
+    private UserData userData;
+
+    [SerializeField]
+    private TextMeshProUGUI coinsText;
 
     [SerializeField]
     private GameObject planeCardPrefab;
@@ -13,8 +17,6 @@ public class ShopManager : MonoBehaviour
 
     [SerializeField]
     private GameObject colorBtnPrefab;
-
-    private UserData userData;
 
     [SerializeField]
     private PlaneDatabase planeDatabase;
@@ -29,7 +31,6 @@ public class ShopManager : MonoBehaviour
 
     void Start()
     {
-        // PlayerPrefs.DeleteKey("SpaceShooter_UserData"); // For testing, remove in production
         LoadData();
         PopulateShop();
     }
@@ -40,30 +41,8 @@ public class ShopManager : MonoBehaviour
         {
             string json = PlayerPrefs.GetString("SpaceShooter_UserData");
             userData = JsonUtility.FromJson<UserData>(json);
-            Debug.Log("User data: " + json);
-            Debug.Log(userData);
+            coinsText.text = userData.coins.ToString();
         }
-        else
-        {
-            userData = CreateDefaultUserData();
-            SaveUserData();
-        }
-
-        foreach (PlaneData plane in planeDatabase.allPlanes)
-        {
-            plane.isUnlocked = userData.ownedPlanes.Exists(ownedPlane =>
-                ownedPlane.planeName == plane.planeName
-            );
-        }
-    }
-
-    void SaveUserData()
-    {
-        Debug.Log("Saving user data: " + userData);
-        Debug.Log("User data: " + JsonUtility.ToJson(userData));
-        string json = JsonUtility.ToJson(userData);
-        PlayerPrefs.SetString("SpaceShooter_UserData", json);
-        PlayerPrefs.Save();
     }
 
     void PopulateShop()
@@ -78,18 +57,6 @@ public class ShopManager : MonoBehaviour
             cardUI.colorBtnPrefab = colorBtnPrefab;
             cardUI.Setup(plane, userData, PopulateShop);
         }
-    }
-
-    UserData CreateDefaultUserData()
-    {
-        return new UserData
-        {
-            coins = 0,
-            BGMusicOn = true,
-            equippedPlaneName = "Triangle",
-            ownedPlanes = new List<PlaneData> { planeDatabase.allPlanes[0] },
-            equippedPlane = planeDatabase.allPlanes[0],
-        };
     }
 
     public void ShowNotEnoughCoinsDialog()

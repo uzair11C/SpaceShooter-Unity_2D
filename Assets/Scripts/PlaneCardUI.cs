@@ -19,8 +19,6 @@ public class PlaneCardUI : MonoBehaviour
     [SerializeField]
     private Transform colorsPanel;
 
-    public GameObject colorBtnPrefab;
-
     [SerializeField]
     private Button buyBtn;
 
@@ -30,6 +28,7 @@ public class PlaneCardUI : MonoBehaviour
     [SerializeField]
     private Button equipBtn;
 
+    public GameObject colorBtnPrefab;
     private PlaneData planeData;
     private UserData userData;
 
@@ -86,18 +85,23 @@ public class PlaneCardUI : MonoBehaviour
             }
         });
 
+        equipBtn.onClick.RemoveAllListeners();
+
         equipBtn.GetComponentInChildren<TMP_Text>().text =
             userData.equippedPlaneName == data.planeName ? "Equipped" : "Equip";
-        equipBtn.onClick.RemoveAllListeners();
-        equipBtn.onClick.AddListener(() =>
+
+        if (data.planeName != userData.equippedPlaneName)
         {
-            userData.equippedPlaneName = data.planeName;
-            userData.equippedPlane = data;
-            equipBtn.GetComponentInChildren<TMP_Text>().text = "Equipped";
-            SaveGame(userData);
-            Setup(data, userData, onUpdateUI);
-            onUpdateUI?.Invoke();
-        });
+            equipBtn.onClick.AddListener(() =>
+            {
+                userData.equippedPlaneName = data.planeName;
+                userData.equippedPlane = data;
+                equipBtn.GetComponentInChildren<TMP_Text>().text = "Equipped";
+                SaveGame(userData);
+                Setup(data, userData, onUpdateUI);
+                onUpdateUI?.Invoke();
+            });
+        }
     }
 
     public void SaveGame(UserData data)

@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     private bool isSpecialActive = false;
     private UserData userData;
     private float fireRate;
-    private float nextFireTime;
+    private float nextFireTime = 0f;
 
     [SerializeField]
     private GameObject[] spawnPoints;
@@ -31,11 +31,11 @@ public class PlayerController : MonoBehaviour
             userData = JsonUtility.FromJson<UserData>(json);
             moveSpeed = userData.equippedPlane.speed;
             fireRate = userData.equippedPlane.fireRate;
-            nextFireTime = fireRate;
+            // fireRate = 1f;
         }
     }
 
-    void U.9o87ydate()
+    void Update()
     {
 #if UNITY_EDITOR
         if (Input.GetMouseButton(0))
@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
 
         nextFireTime -= Time.deltaTime;
 
-        if (nextFireTime <= 0)
+        if (nextFireTime <= 0f)
         {
             foreach (var spawnPoint in spawnPoints)
             {
@@ -81,6 +81,6 @@ public class PlayerController : MonoBehaviour
 
     void FireBullet(GameObject spawnPoint, GameObject bulletPrefab)
     {
-        Instantiate(bulletPrefab, spawnPoint.transform.position, Quaternion.identity);
+        Instantiate(bulletPrefab, spawnPoint.transform.position, Quaternion.Euler(0f, 0f, 90f));
     }
 }

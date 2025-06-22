@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BackgroundManager : MonoBehaviour
@@ -8,7 +6,7 @@ public class BackgroundManager : MonoBehaviour
     private Sprite[] backgroundImages;
 
     [SerializeField]
-    GameObject Background;
+    private Renderer Background;
 
     // Start is called before the first frame update
     void Start()
@@ -20,11 +18,14 @@ public class BackgroundManager : MonoBehaviour
         }
 
         // Set the selected background image to the Background GameObject
-        Background.GetComponent<SpriteRenderer>().sprite = backgroundImages[
+        Background.material.mainTexture = backgroundImages[
             Random.Range(0, backgroundImages.Length)
-        ];
+        ].texture;
     }
 
     // Update is called once per frame
-    void Update() { }
+    void Update()
+    {
+        Background.material.mainTextureOffset += new Vector2(0, 0.2f * Time.deltaTime);
+    }
 }
