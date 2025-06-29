@@ -130,3 +130,8 @@ MonoBehaviour:
     isUnlocked: 0
     price: 2200
     planePrefab: {fileID: 3624315432272083649, guid: 751578fab914c55478c4b2ee4593dad6, type: 3}
+  enemyPlanes:
+  - enemyName: Poison Spitter
+    enemySpeed: 5
+    enemyFireRate: 0.5
+    enemyPrefab: {fileID: 0}

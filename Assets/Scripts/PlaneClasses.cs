@@ -22,7 +22,28 @@ public class PlaneData
     public GameObject planePrefab;
 }
 
-public class EnemyData { }
+[System.Serializable]
+public class EnemyData
+{
+    public string enemyName;
+    public float enemySpeed;
+    public float enemyFireRate;
+    public EnemyType enemyType;
+    public EnemyMovementPattern movementPattern; // For path following
+    public GameObject enemyPrefab;
+}
+
+public enum EnemyType
+{
+    Boss,
+    FootSoldier,
+}
+
+public enum EnemyMovementPattern
+{
+    ArcPath,
+    GridPattern,
+}
 
 [CreateAssetMenu(fileName = "PlaneDatabase", menuName = "Game Data/Plane Database")]
 public class PlaneDatabase : ScriptableObject

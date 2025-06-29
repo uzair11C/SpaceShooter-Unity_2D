@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    private UserData userData;
     private GameManager gameManager;
     private float xBoundary = 1.8f;
     private float yBoundary = 4.1f;
     private float moveSpeed;
-    private bool isSpecialActive = false;
-    private UserData userData;
     private float fireRate;
     private float nextFireTime = 0f;
+    private bool isSpecialActive = false;
 
     [SerializeField]
     private GameObject[] spawnPoints;
@@ -31,7 +31,6 @@ public class PlayerController : MonoBehaviour
             userData = JsonUtility.FromJson<UserData>(json);
             moveSpeed = userData.equippedPlane.speed;
             fireRate = userData.equippedPlane.fireRate;
-            // fireRate = 1f;
         }
     }
 
@@ -74,6 +73,10 @@ public class PlayerController : MonoBehaviour
             foreach (var spawnPoint in spawnPoints)
             {
                 FireBullet(spawnPoint, bullet);
+            }
+            if (isSpecialActive)
+            {
+                FireBullet(specialSpawnPoint, specialBullet);
             }
             nextFireTime = fireRate;
         }
