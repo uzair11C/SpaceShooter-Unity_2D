@@ -9,7 +9,7 @@ public class EnemyMovement : MonoBehaviour
     private float nextFireTime = 0f;
 
     [SerializeField]
-    private GameObject spawnPoint;
+    private GameObject[] spawnPoints;
 
     [SerializeField]
     private GameObject bullet;

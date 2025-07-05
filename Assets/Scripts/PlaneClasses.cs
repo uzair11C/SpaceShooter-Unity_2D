@@ -29,8 +29,8 @@ public class EnemyData
     public float enemySpeed;
     public float enemyFireRate;
     public EnemyType enemyType;
-    public EnemyMovementPattern movementPattern; // For path following
     public GameObject enemyPrefab;
+    // public EnemyMovementPattern movementPattern; // For path following
 }
 
 public enum EnemyType

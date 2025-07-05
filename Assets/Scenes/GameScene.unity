@@ -262,6 +262,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &864401698
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 864401699}
+  m_Layer: 0
+  m_Name: startSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &864401699
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 864401698}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &975522009
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,6 +304,7 @@ GameObject:
   - component: {fileID: 975522012}
   - component: {fileID: 975522011}
   - component: {fileID: 975522010}
+  - component: {fileID: 975522013}
   m_Layer: 0
   m_Name: In-GameManager
   m_TagString: Untagged
@@ -329,6 +361,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &975522013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 975522009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cedfb8809d19dce48b4c8df57d302118, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  planeDatabase: {fileID: 11400000, guid: d6394568c932efb46b536d20094d042e, type: 2}
+  startSpawnPoint: {fileID: 864401699}
+  pathGroups:
+  - {fileID: 2623323747061222349, guid: 36b394583b2219742bc2a86f3ac90674, type: 3}
+  - {fileID: 5307387037822185667, guid: 262b79e06e6612b4ab0eedbfdf2817f0, type: 3}
 --- !u!1 &1564974389
 GameObject:
   m_ObjectHideFlags: 0
@@ -427,5 +476,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 1564974392}
   - {fileID: 226162248}
-  - {fileID: 975522012}
+  - {fileID: 864401699}
   - {fileID: 113636252}
+  - {fileID: 975522012}

@@ -25,3 +25,40 @@ public class EnemyPathFollower : MonoBehaviour
         }
     }
 }
+
+//  void Update()
+//     {
+//         if (pathPoints == null || pathPoints.Count == 0)
+//             return;
+
+//         if (!isFollowingPath)
+//         {
+//             // Entry phase: move to first path point
+//             transform.position = Vector2.MoveTowards(
+//                 transform.position,
+//                 pathPoints[0].position,
+//                 speed * Time.deltaTime
+//             );
+
+//             if (Vector2.Distance(transform.position, pathPoints[0].position) < 0.05f)
+//             {
+//                 isFollowingPath = true;
+//                 currentPointIndex = 1; // Start following from pathPoints[1]
+//             }
+//         }
+//         else
+//         {
+//             Transform targetPoint = pathPoints[currentPointIndex];
+
+//             transform.position = Vector2.MoveTowards(
+//                 transform.position,
+//                 targetPoint.position,
+//                 speed * Time.deltaTime
+//             );
+
+//             if (Vector2.Distance(transform.position, targetPoint.position) < 0.05f)
+//             {
+//                 currentPointIndex = (currentPointIndex + 1) % pathPoints.Count;
+//             }
+//         }
+//     }

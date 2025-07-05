@@ -134,4 +134,15 @@ MonoBehaviour:
   - enemyName: Poison Spitter
     enemySpeed: 5
     enemyFireRate: 0.5
-    enemyPrefab: {fileID: 0}
+    enemyType: 1
+    enemyPrefab: {fileID: 5344323556951372559, guid: e9b0e5fc6811d824fbcfd8ebef1697a5, type: 3}
+  - enemyName: Poison Spitter Purple
+    enemySpeed: 5
+    enemyFireRate: 0.5
+    enemyType: 1
+    enemyPrefab: {fileID: 5344323556951372559, guid: ebba91181b3d7a04a9125906e883a3b8, type: 3}
+  - enemyName: Fly
+    enemySpeed: 5
+    enemyFireRate: 0.5
+    enemyType: 1
+    enemyPrefab: {fileID: 5344323556951372559, guid: 20b535dbc3907f0479324995c29f112c, type: 3}
