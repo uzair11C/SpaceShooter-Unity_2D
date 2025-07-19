@@ -23,6 +23,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private GameObject specialBullet;
 
+    void Start()
+    {
+        gameManager = GameManager.Instance;
+    }
+
     void Awake()
     {
         if (PlayerPrefs.HasKey("SpaceShooter_UserData"))
@@ -37,11 +42,15 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 #if UNITY_EDITOR
+        if (gameManager.blockControl)
+            return;
         if (Input.GetMouseButton(0))
         {
             UpdateTouchPosition(Input.mousePosition);
         }
 #else
+        if (gameManager.blockControl)
+            return;
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
@@ -62,7 +71,7 @@ public class PlayerController : MonoBehaviour
 
         // Clamp the final position
         targetPosition.x = Mathf.Clamp(targetPosition.x, -xBoundary, xBoundary);
-        targetPosition.y = Mathf.Clamp(targetPosition.y, -yBoundary, yBoundary);
+        targetPosition.y = Mathf.Clamp(targetPosition.y, -3.3f, yBoundary);
 
         transform.position = targetPosition;
 

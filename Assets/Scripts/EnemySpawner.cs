@@ -1,21 +1,46 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
+    public static EnemySpawner Instance { get; private set; }
+
     [SerializeField]
     private PlaneDatabase planeDatabase;
 
     [SerializeField]
     private Transform startSpawnPoint;
 
-    public Transform[] pathGroups; // Assign PathGroup_Arc1 in Inspector
+    [SerializeField]
+    private TextMeshProUGUI waveName;
+
+    [SerializeField]
+    private TextMeshProUGUI waveCountText;
+
+    private GameManager gameManager;
+    public Transform[] pathGroups;
+
     private int totalWaves = 10;
     private int currentWave = 0;
+    public bool isSpawning = false;
+    public bool isGridPattern = false;
+
+    void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
+    }
 
     void Start()
     {
+        gameManager = GameManager.Instance;
+        waveName.gameObject.SetActive(true);
+        waveName.text = "Wave 1";
+        waveCountText.text = $"Wave {currentWave + 1} / {totalWaves}";
         StartCoroutine(StartWaves());
     }
 
@@ -24,10 +49,15 @@ public class EnemySpawner : MonoBehaviour
         while (currentWave < totalWaves)
         {
             currentWave++;
-            Debug.Log($"Spawning Wave {currentWave}");
+
+            waveCountText.text = $"Wave {currentWave} / {totalWaves}";
 
             // Randomly choose between arc or grid
             bool spawnArc = Random.value > 0.5f;
+
+            yield return new WaitForSeconds(2f);
+
+            waveName.gameObject.SetActive(false);
 
             if (spawnArc)
             {
@@ -42,14 +72,20 @@ public class EnemySpawner : MonoBehaviour
 
             yield return new WaitUntil(() => GameObject.FindGameObjectsWithTag("enemy").Length == 0
             );
+            waveName.gameObject.SetActive(true);
+            waveName.text = $"Wave {currentWave + 1}";
             yield return new WaitForSeconds(2f); // small pause before next wave
         }
-
-        Debug.Log("All waves spawned.");
     }
 
     public void SpawnArcWave(int enemyCount, float xSpacing)
     {
+        gameManager.blockControl = true; // Block player control during spawn
+
+        isSpawning = true;
+
+        isGridPattern = false; // Reset grid pattern flag
+
         Transform randomPathGroup = pathGroups[Random.Range(0, pathGroups.Length)];
         List<Transform> pathPoints = new();
         foreach (Transform point in randomPathGroup)
@@ -79,10 +115,16 @@ public class EnemySpawner : MonoBehaviour
             EnemyPathFollower follower = enemy.GetComponent<EnemyPathFollower>();
             follower.pathPoints = pathPoints;
         }
+        gameManager.blockControl = false; // Unblock player control after spawn
+        isSpawning = false;
     }
 
     public void SpawnGridPattern()
     {
+        isGridPattern = true;
+        isSpawning = true;
+        gameManager.blockControl = true; // Block player control during spawn
+
         int[] enemiesPerRow = { 4, 3, 2 };
         float xSpacing = 1.2f;
         float ySpacing = 1.2f;
@@ -114,5 +156,7 @@ public class EnemySpawner : MonoBehaviour
                 mover.SetTargetPosition(targetPos);
             }
         }
+        isSpawning = false;
+        gameManager.blockControl = false; // Unblock player control after spawn
     }
 }
