@@ -6,6 +6,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public static EnemySpawner Instance { get; private set; }
+    public Transform[] pathGroups;
 
     [SerializeField]
     private PlaneDatabase planeDatabase;
@@ -19,16 +20,18 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI waveCountText;
 
-    private GameManager gameManager;
-    public Transform[] pathGroups;
+    [SerializeField]
+    private GameObject[] bossPrefabs;
 
+    private GameManager gameManager;
     private int totalWaves = 10;
-    private int currentWave = 0;
+    private int currentWave = 8;
     public bool isSpawning = false;
     public bool isGridPattern = false;
 
     void Awake()
     {
+        gameManager = GameManager.Instance;
         if (Instance == null)
             Instance = this;
         else
@@ -37,7 +40,6 @@ public class EnemySpawner : MonoBehaviour
 
     void Start()
     {
-        gameManager = GameManager.Instance;
         waveName.gameObject.SetActive(true);
         waveName.text = "Wave 1";
         waveCountText.text = $"Wave {currentWave + 1} / {totalWaves}";
@@ -72,10 +74,19 @@ public class EnemySpawner : MonoBehaviour
 
             yield return new WaitUntil(() => GameObject.FindGameObjectsWithTag("enemy").Length == 0
             );
-            waveName.gameObject.SetActive(true);
-            waveName.text = $"Wave {currentWave + 1}";
+
+            if (currentWave < totalWaves)
+            {
+                waveName.gameObject.SetActive(true);
+                waveName.text = $"Wave {currentWave + 1}";
+            }
             yield return new WaitForSeconds(2f); // small pause before next wave
         }
+
+        waveName.gameObject.SetActive(true);
+        waveName.text = "Boss Alert!!!";
+        yield return new WaitForSeconds(2f);
+        SpawnBoss();
     }
 
     public void SpawnArcWave(int enemyCount, float xSpacing)
@@ -158,5 +169,25 @@ public class EnemySpawner : MonoBehaviour
         }
         isSpawning = false;
         gameManager.blockControl = false; // Unblock player control after spawn
+    }
+
+    private void SpawnBoss()
+    {
+        waveName.gameObject.SetActive(false);
+        isSpawning = true;
+        gameManager.blockControl = true; // Block player control during boss spawn
+        GameObject randomBossPrefab = bossPrefabs[Random.Range(0, bossPrefabs.Length)];
+        Vector3 spawnPosition = new Vector3(0, 6, 0); // Off-screen top center
+        GameObject boss = Instantiate(
+            randomBossPrefab,
+            spawnPosition,
+            Quaternion.Euler(0, 0, 180f)
+        );
+
+        // Optional: add boss movement into scene
+        BossMover bossMover = boss.AddComponent<BossMover>();
+        bossMover.targetPosition = new Vector3(0, 2.5f, 0); // Where boss settles on screen
+        isSpawning = false;
+        gameManager.blockControl = false; // Unblock player control after boss spawn
     }
 }

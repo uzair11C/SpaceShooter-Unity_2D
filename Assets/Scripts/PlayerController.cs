@@ -26,17 +26,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         gameManager = GameManager.Instance;
-    }
-
-    void Awake()
-    {
-        if (PlayerPrefs.HasKey("SpaceShooter_UserData"))
-        {
-            string json = PlayerPrefs.GetString("SpaceShooter_UserData");
-            userData = JsonUtility.FromJson<UserData>(json);
-            moveSpeed = userData.equippedPlane.speed;
-            fireRate = userData.equippedPlane.fireRate;
-        }
+        moveSpeed = gameManager.playerMoveSpeed;
+        fireRate = gameManager.playerFireRate;
     }
 
     void Update()

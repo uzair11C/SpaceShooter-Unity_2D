@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BulletScript : MonoBehaviour
+public class EnemyBulletScript : MonoBehaviour
 {
     [SerializeField]
     private int damage;
@@ -17,8 +17,8 @@ public class BulletScript : MonoBehaviour
     {
         gameManager = GameManager.Instance;
 
-        speed = 9f;
-        rb.velocity = Vector2.up * speed;
+        speed = 2f;
+        rb.velocity = Vector2.down * speed;
     }
 
     void Update()
@@ -28,19 +28,19 @@ public class BulletScript : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("enemy"))
-        {
-            Destroy(collision.gameObject);
-            Destroy(gameObject);
-        }
 
         if (GameObject.FindGameObjectsWithTag("enemy").Length == 0)
         {
             Destroy(gameObject);
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            Destroy(gameObject);
+            gameManager.PlayerHealth -= damage;
         }
     }
 }

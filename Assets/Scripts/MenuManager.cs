@@ -14,7 +14,7 @@ public class MenuManager : MonoBehaviour
 
     void Start()
     {
-        PlayerPrefs.DeleteKey("SpaceShooter_UserData"); // For testing, remove in production
+        // PlayerPrefs.DeleteKey("SpaceShooter_UserData"); // For testing, remove in production
         LoadData();
     }
 

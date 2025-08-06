@@ -2,17 +2,36 @@ using UnityEngine;
 
 public class BossMovement : MonoBehaviour
 {
-    public float speed = 1f;
-    private bool hasStopped = false;
+    private float fireRate = 1f;
+    private float nextFireTime = 0f;
+    private EnemySpawner enemySpawner;
 
-    void Update()
+    [SerializeField]
+    private GameObject[] spawnPoints;
+
+    [SerializeField]
+    private GameObject bullet;
+
+    void Awake()
     {
-        if (!hasStopped)
-        {
-            transform.Translate(Vector2.down * speed * Time.deltaTime);
+        enemySpawner = EnemySpawner.Instance;
+        nextFireTime = fireRate;
+    }
 
-            if (transform.position.y <= 2f) // Stop at y = 2
-                hasStopped = true;
-        }
+    void Start()
+    {
+        Debug.Log("Boss Spawned at: " + transform.position);
+    }
+
+    void OnDestroy()
+    {
+        Debug.Log("Boss Destroyed");
+    }
+
+    void Update() { }
+
+    private void FireBullet(GameObject spawnPoint, GameObject bulletPrefab)
+    {
+        Instantiate(bulletPrefab, spawnPoint.transform.position, Quaternion.Euler(0f, 0f, -90f));
     }
 }

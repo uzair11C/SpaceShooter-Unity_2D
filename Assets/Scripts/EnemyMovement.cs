@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    private float fireRate = 0.7f;
+    private float fireRate = 1f;
     private float nextFireTime = 0f;
     private EnemySpawner enemySpawner;
 
@@ -25,21 +25,21 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        if (!enemySpawner.isSpawning)
-        {
-            nextFireTime -= Time.deltaTime;
-            if (nextFireTime <= 0f)
-            {
-                foreach (var spawnPoint in spawnPoints)
-                {
-                    FireBullet(spawnPoint, bullet);
-                }
-                nextFireTime = fireRate;
-            }
-        }
-    }
+    // void Update()
+    // {
+    //     if (!enemySpawner.isSpawning)
+    //     {
+    //         nextFireTime -= Time.deltaTime;
+    //         if (nextFireTime <= 0f)
+    //         {
+    //             foreach (var spawnPoint in spawnPoints)
+    //             {
+    //                 FireBullet(spawnPoint, bullet);
+    //             }
+    //             nextFireTime = fireRate;
+    //         }
+    //     }
+    // }
 
     private void FireBullet(GameObject spawnPoint, GameObject bulletPrefab)
     {
