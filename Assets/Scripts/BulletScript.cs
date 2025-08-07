@@ -8,6 +8,9 @@ public class BulletScript : MonoBehaviour
     [SerializeField]
     private Rigidbody2D rb;
 
+    [SerializeField]
+    private GameObject[] collectables;
+
     private GameManager gameManager;
     private float speed;
     private float upperBound = 5f;
@@ -35,6 +38,21 @@ public class BulletScript : MonoBehaviour
         if (collision.CompareTag("enemy"))
         {
             Destroy(collision.gameObject);
+
+            if (collectables != null && collectables.Length > 0)
+            {
+                int randomChance = Random.Range(1, 101);
+
+                if (randomChance <= 30)
+                {
+                    Instantiate(
+                        collectables[Random.Range(0, collectables.Length)],
+                        collision.transform.position,
+                        Quaternion.identity
+                    );
+                }
+            }
+
             Destroy(gameObject);
         }
 

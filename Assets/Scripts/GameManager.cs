@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -5,23 +6,25 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    public int coinsCount;
     public bool blockControl = false;
     public float playerMoveSpeed;
     public float playerFireRate;
+    public int coinsCollected = 0;
+    public float bulletPowerUpTime = 5f;
+    public GameObject bulletPowerUpGroup;
+    public bool isSpecialActive = false;
+    public TextMeshProUGUI coinsCountText;
+    public int _playerHealth = 100;
 
     private UserData userData;
-    private int _playerHealth = 100;
     private int bossHealth = 250;
+    private Slider bulletPowerUpTimer;
 
     [SerializeField]
     private PlaneDatabase planeDatabase;
 
     [SerializeField]
     private Slider healthSlider;
-
-    [SerializeField]
-    private TextMeshProUGUI coinsCountText;
 
     public int PlayerHealth
     {
@@ -61,6 +64,10 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        coinsCountText.text = $"{coinsCollected}";
+
+        bulletPowerUpTimer = bulletPowerUpGroup.GetComponentInChildren<Slider>();
     }
 
     void Start()
@@ -128,5 +135,20 @@ public class GameManager : MonoBehaviour
             if (healthSlider.fillRect.TryGetComponent<Image>(out var img))
                 img.color = targetColor;
         }
+    }
+
+    public IEnumerator StartBulletPowerUpTimer(float duration)
+    {
+        bulletPowerUpGroup.SetActive(true);
+        bulletPowerUpTimer.maxValue = duration;
+        bulletPowerUpTimer.value = duration;
+        isSpecialActive = true;
+        while (bulletPowerUpTimer.value > 0)
+        {
+            yield return null;
+            bulletPowerUpTimer.value -= Time.deltaTime;
+        }
+        isSpecialActive = false;
+        bulletPowerUpGroup.SetActive(false);
     }
 }

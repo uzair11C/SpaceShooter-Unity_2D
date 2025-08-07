@@ -8,6 +8,9 @@ TagManager:
   - enemyBullet
   - enemy
   - Boss
+  - coin
+  - health
+  - specialBulletPowerUp
   layers:
   - Default
   - TransparentFX

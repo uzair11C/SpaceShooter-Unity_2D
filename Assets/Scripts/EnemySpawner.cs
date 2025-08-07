@@ -25,7 +25,7 @@ public class EnemySpawner : MonoBehaviour
 
     private GameManager gameManager;
     private int totalWaves = 10;
-    private int currentWave = 8;
+    private int currentWave = 0;
     public bool isSpawning = false;
     public bool isGridPattern = false;
 

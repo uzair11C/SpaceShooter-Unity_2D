@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,7 +10,6 @@ public class PlayerController : MonoBehaviour
     private float moveSpeed;
     private float fireRate;
     private float nextFireTime = 0f;
-    private bool isSpecialActive = false;
 
     [SerializeField]
     private GameObject[] spawnPoints;
@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour
             {
                 FireBullet(spawnPoint, bullet);
             }
-            if (isSpecialActive)
+            if (gameManager.isSpecialActive)
             {
                 FireBullet(specialSpawnPoint, specialBullet);
             }
@@ -85,5 +85,28 @@ public class PlayerController : MonoBehaviour
     void FireBullet(GameObject spawnPoint, GameObject bulletPrefab)
     {
         Instantiate(bulletPrefab, spawnPoint.transform.position, Quaternion.Euler(0f, 0f, 90f));
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("coin"))
+        {
+            gameManager.coinsCollected++;
+            gameManager.coinsCountText.text = $"{gameManager.coinsCollected}";
+            Destroy(collision.gameObject);
+        }
+        else if (collision.gameObject.CompareTag("health"))
+        {
+            if (gameManager.PlayerHealth < gameManager._playerHealth)
+            {
+                gameManager.PlayerHealth += 10;
+            }
+            Destroy(collision.gameObject);
+        }
+        else if (collision.gameObject.CompareTag("specialBulletPowerUp"))
+        {
+            StartCoroutine(gameManager.StartBulletPowerUpTimer(5f));
+            Destroy(collision.gameObject);
+        }
     }
 }

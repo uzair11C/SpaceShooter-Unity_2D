@@ -21,25 +21,25 @@ public class EnemyMovement : MonoBehaviour
         }
         else
         {
-            fireRate = 1f;
+            fireRate = 1.5f;
         }
     }
 
-    // void Update()
-    // {
-    //     if (!enemySpawner.isSpawning)
-    //     {
-    //         nextFireTime -= Time.deltaTime;
-    //         if (nextFireTime <= 0f)
-    //         {
-    //             foreach (var spawnPoint in spawnPoints)
-    //             {
-    //                 FireBullet(spawnPoint, bullet);
-    //             }
-    //             nextFireTime = fireRate;
-    //         }
-    //     }
-    // }
+    void Update()
+    {
+        if (!enemySpawner.isSpawning)
+        {
+            nextFireTime -= Time.deltaTime;
+            if (nextFireTime <= 0f)
+            {
+                foreach (var spawnPoint in spawnPoints)
+                {
+                    FireBullet(spawnPoint, bullet);
+                }
+                nextFireTime = fireRate;
+            }
+        }
+    }
 
     private void FireBullet(GameObject spawnPoint, GameObject bulletPrefab)
     {

@@ -163,3 +163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 10
   rb: {fileID: 3322246730655362090}
+  collectables:
+  - {fileID: 7621292981966844167, guid: b9de76ac7d9535547bc5053e493df6a6, type: 3}
+  - {fileID: 2122253525688724386, guid: 490f9a4bdf781e543b9a476a057e0816, type: 3}
+  - {fileID: 1359915582228533938, guid: 90afedc8a418c96489b8580442094cd0, type: 3}
