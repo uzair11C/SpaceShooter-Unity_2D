@@ -5,6 +5,7 @@ public class EnemyMovement : MonoBehaviour
     private float fireRate = 1f;
     private float nextFireTime = 0f;
     private EnemySpawner enemySpawner;
+    private GameManager gameManager;
 
     [SerializeField]
     private GameObject[] spawnPoints;
@@ -14,6 +15,7 @@ public class EnemyMovement : MonoBehaviour
 
     void Awake()
     {
+        gameManager = GameManager.Instance;
         enemySpawner = EnemySpawner.Instance;
         if (enemySpawner.isGridPattern)
         {
@@ -27,6 +29,9 @@ public class EnemyMovement : MonoBehaviour
 
     void Update()
     {
+        if (gameManager.blockControl)
+            return;
+
         if (!enemySpawner.isSpawning)
         {
             nextFireTime -= Time.deltaTime;

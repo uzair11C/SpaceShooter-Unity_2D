@@ -12,22 +12,18 @@ public class BulletScript : MonoBehaviour
     private GameObject[] collectables;
 
     private GameManager gameManager;
-    private float speed;
-    private float upperBound = 5f;
-    private float lowerBound = -5f;
 
     void Start()
     {
         gameManager = GameManager.Instance;
 
-        speed = 9f;
-        rb.velocity = Vector2.up * speed;
+        rb.velocity = Vector2.up * 8f;
     }
 
     void Update()
     {
         // Destroy bullet if out of bounds
-        if (transform.position.y > upperBound || transform.position.y < lowerBound)
+        if (transform.position.y > 5f || transform.position.y < -5f)
         {
             Destroy(gameObject);
         }

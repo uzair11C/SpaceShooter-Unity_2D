@@ -5,9 +5,18 @@ public class EnemyPathFollower : MonoBehaviour
 {
     public List<Transform> pathPoints; // Assigned by spawner
     private int currentPointIndex = 0;
+    private GameManager gameManager;
+
+    void Awake()
+    {
+        gameManager = GameManager.Instance;
+    }
 
     void Update()
     {
+        if (gameManager.blockControl)
+            return;
+
         if (pathPoints == null || pathPoints.Count == 0)
             return;
 

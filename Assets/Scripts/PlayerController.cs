@@ -23,9 +23,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private GameObject specialBullet;
 
-    void Start()
+    void Awake()
     {
         gameManager = GameManager.Instance;
+    }
+
+    void Start()
+    {
         moveSpeed = gameManager.playerMoveSpeed;
         fireRate = gameManager.playerFireRate;
     }
@@ -33,15 +37,11 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 #if UNITY_EDITOR
-        if (gameManager.blockControl)
-            return;
         if (Input.GetMouseButton(0))
         {
             UpdateTouchPosition(Input.mousePosition);
         }
 #else
-        if (gameManager.blockControl)
-            return;
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
@@ -52,6 +52,9 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateTouchPosition(Vector3 position)
     {
+        if (gameManager.blockControl)
+            return;
+
         Vector3 touchPosition = Camera.main.ScreenToWorldPoint(position);
         touchPosition.z = 0f;
         Vector3 targetPosition = Vector3.Lerp(
@@ -97,7 +100,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("health"))
         {
-            if (gameManager.PlayerHealth < gameManager._playerHealth)
+            if (gameManager.PlayerHealth < 100)
             {
                 gameManager.PlayerHealth += 10;
             }
@@ -105,7 +108,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("specialBulletPowerUp"))
         {
-            StartCoroutine(gameManager.StartBulletPowerUpTimer(5f));
+            StartCoroutine(gameManager.StartBulletPowerUpTimer(7f));
             Destroy(collision.gameObject);
         }
     }

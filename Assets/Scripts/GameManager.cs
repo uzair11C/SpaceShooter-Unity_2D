@@ -26,6 +26,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Slider healthSlider;
 
+    [SerializeField]
+    private GameObject gameOverDialog;
+
     public int PlayerHealth
     {
         get => _playerHealth;
@@ -55,15 +58,15 @@ public class GameManager : MonoBehaviour
             SpawnPlayer();
         }
 
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        // if (Instance == null)
+        // {
+        //     Instance = this;
+        //     DontDestroyOnLoad(gameObject);
+        // }
+        // else
+        // {
+        //     Destroy(gameObject);
+        // }
 
         coinsCountText.text = $"{coinsCollected}";
 
@@ -97,14 +100,29 @@ public class GameManager : MonoBehaviour
 
     private void HandlePlayerDeath()
     {
-        // Block control
         blockControl = true;
+
+        Transform dialogTransform = gameOverDialog.transform.Find("dialog");
+        Transform coinsEarnedTransform =
+            dialogTransform != null ? dialogTransform.Find("coinsEarned") : null;
+        TextMeshProUGUI earnedCoinsText;
+        if (coinsEarnedTransform != null)
+        {
+            Transform earnedCoinsTextTransform = coinsEarnedTransform.Find("earnedCoinsText");
+            if (earnedCoinsTextTransform != null)
+            {
+                earnedCoinsText = earnedCoinsTextTransform.GetComponent<TextMeshProUGUI>();
+                earnedCoinsText.text = $"{coinsCollected}";
+            }
+        }
+
+        gameOverDialog.SetActive(true);
+
+        Time.timeScale = 0f; // Pause the game
 
         // Optionally:
         // - Trigger death animation
-        // - Show game over UI
         // - Stop enemy spawns
-        // - Offer retry options
     }
 
     private void UpdateHealthBar()
