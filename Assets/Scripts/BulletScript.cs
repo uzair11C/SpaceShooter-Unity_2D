@@ -9,6 +9,9 @@ public class BulletScript : MonoBehaviour
     private Rigidbody2D rb;
 
     [SerializeField]
+    private GameObject coinPrefab;
+
+    [SerializeField]
     private GameObject[] collectables;
 
     private GameManager gameManager;
@@ -34,6 +37,11 @@ public class BulletScript : MonoBehaviour
         if (collision.CompareTag("enemy"))
         {
             Destroy(collision.gameObject);
+
+            if (Random.value <= 0.88f) // 88% chance to spawn coin
+            {
+                Instantiate(coinPrefab, collision.transform.position, Quaternion.identity);
+            }
 
             if (collectables != null && collectables.Length > 0)
             {

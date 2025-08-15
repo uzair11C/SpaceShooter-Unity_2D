@@ -50,6 +50,16 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+            // DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         if (PlayerPrefs.HasKey("SpaceShooter_UserData"))
         {
             string json = PlayerPrefs.GetString("SpaceShooter_UserData");
@@ -57,16 +67,6 @@ public class GameManager : MonoBehaviour
 
             SpawnPlayer();
         }
-
-        // if (Instance == null)
-        // {
-        //     Instance = this;
-        //     DontDestroyOnLoad(gameObject);
-        // }
-        // else
-        // {
-        //     Destroy(gameObject);
-        // }
 
         coinsCountText.text = $"{coinsCollected}";
 
@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour
                 .selectedSprite;
     }
 
-    private void HandlePlayerDeath()
+    public void HandlePlayerDeath()
     {
         blockControl = true;
 
@@ -115,6 +115,18 @@ public class GameManager : MonoBehaviour
                 earnedCoinsText.text = $"{coinsCollected}";
             }
         }
+
+        // Destroy all enemy bullets
+        foreach (var bullet in GameObject.FindGameObjectsWithTag("enemyBullet"))
+        {
+            Destroy(bullet);
+        }
+
+        // // Destroy all bossBullets
+        // foreach (var bullet in GameObject.FindGameObjectsWithTag("bossBullet"))
+        // {
+        //     Destroy(bullet);
+        // }
 
         gameOverDialog.SetActive(true);
 

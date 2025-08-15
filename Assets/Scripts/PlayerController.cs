@@ -111,5 +111,17 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(gameManager.StartBulletPowerUpTimer(7f));
             Destroy(collision.gameObject);
         }
+        else if (collision.gameObject.CompareTag("enemy"))
+        {
+            Destroy(collision.gameObject);
+            if (gameManager.PlayerHealth > 0)
+            {
+                gameManager.PlayerHealth -= 10;
+            }
+            else
+            {
+                gameManager.HandlePlayerDeath();
+            }
+        }
     }
 }
