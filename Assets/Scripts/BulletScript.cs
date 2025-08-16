@@ -40,7 +40,11 @@ public class BulletScript : MonoBehaviour
 
             if (Random.value <= 0.88f) // 88% chance to spawn coin
             {
-                Instantiate(coinPrefab, collision.transform.position, Quaternion.identity);
+                Instantiate(
+                    coinPrefab,
+                    collision.transform.position + Vector3.down * 0.5f,
+                    Quaternion.identity
+                );
             }
 
             if (collectables != null && collectables.Length > 0)
@@ -51,7 +55,7 @@ public class BulletScript : MonoBehaviour
                 {
                     Instantiate(
                         collectables[Random.Range(0, collectables.Length)],
-                        collision.transform.position,
+                        collision.transform.position + Vector3.up * 0.5f,
                         Quaternion.identity
                     );
                 }

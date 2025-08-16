@@ -796,10 +796,10 @@ RectTransform:
   - {fileID: 940916968}
   - {fileID: 980381466}
   - {fileID: 130029650}
-  - {fileID: 1953634919}
   - {fileID: 574575610}
   - {fileID: 442929951}
   - {fileID: 1757103237}
+  - {fileID: 1953634919}
   - {fileID: 64634356}
   - {fileID: 1655220357}
   - {fileID: 1270921902}
@@ -6246,7 +6246,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Increase Fire Rate: Increases bullets fired for a limited time'
+  m_text: 'Special Bullet: Fires a powerful bullet for a limited time'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

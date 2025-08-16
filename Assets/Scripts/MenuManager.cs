@@ -22,11 +22,21 @@ public class MenuManager : MonoBehaviour
     {
         if (PlayerPrefs.HasKey("SpaceShooter_UserData"))
         {
-            string json = PlayerPrefs.GetString("SpaceShooter_UserData");
-            userData = JsonUtility.FromJson<UserData>(json);
-            Debug.Log("User data: " + json);
-            Debug.Log(userData);
-            coinsText.text = userData.coins.ToString();
+            try
+            {
+                string json = PlayerPrefs.GetString("SpaceShooter_UserData");
+                userData = JsonUtility.FromJson<UserData>(json);
+                Debug.Log("User data: " + json);
+                Debug.Log(userData);
+                coinsText.text = userData.coins.ToString();
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogError("Error in loading user data: " + ex.Message);
+                coinsText.text = "0";
+                userData = CreateDefaultUserData();
+                SaveUserData();
+            }
         }
         else
         {
@@ -63,7 +73,4 @@ public class MenuManager : MonoBehaviour
             equippedPlane = planeDatabase.allPlanes[0],
         };
     }
-
-    // Update is called once per frame
-    void Update() { }
 }

@@ -113,6 +113,9 @@ public class GameManager : MonoBehaviour
             {
                 earnedCoinsText = earnedCoinsTextTransform.GetComponent<TextMeshProUGUI>();
                 earnedCoinsText.text = $"{coinsCollected}";
+                userData.coins += coinsCollected;
+                PlayerPrefs.SetString("SpaceShooter_UserData", JsonUtility.ToJson(userData));
+                PlayerPrefs.Save();
             }
         }
 
@@ -134,7 +137,6 @@ public class GameManager : MonoBehaviour
 
         // Optionally:
         // - Trigger death animation
-        // - Stop enemy spawns
     }
 
     private void UpdateHealthBar()

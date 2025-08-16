@@ -1728,7 +1728,7 @@ MonoBehaviour:
   _playerHealth: 100
   planeDatabase: {fileID: 11400000, guid: d6394568c932efb46b536d20094d042e, type: 2}
   healthSlider: {fileID: 1494881356}
-  gameOverDialog: {fileID: 0}
+  gameOverDialog: {fileID: 165287106}
 --- !u!4 &975522012
 Transform:
   m_ObjectHideFlags: 0
