@@ -342,7 +342,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8305627915000329065}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -364,7 +364,7 @@ PolygonCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -442,8 +442,6 @@ MonoBehaviour:
   - {fileID: 5581987022006719923}
   - {fileID: 8357142600175177183}
   bullet: {fileID: 6345113721040215614, guid: 437c91addced68c448b4cd3c517bfbf1, type: 3}
-  targetPosition: {x: 0, y: 0, z: 0}
-  speed: 2
 --- !u!114 &-8544986976977662160
 MonoBehaviour:
   m_ObjectHideFlags: 0

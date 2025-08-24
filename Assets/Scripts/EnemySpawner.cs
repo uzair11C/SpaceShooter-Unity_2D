@@ -25,7 +25,7 @@ public class EnemySpawner : MonoBehaviour
 
     private GameManager gameManager;
     private int totalWaves = 10;
-    private int currentWave = 0;
+    private int currentWave = 9;
     public bool isSpawning = false;
     public bool isGridPattern = false;
 
@@ -41,7 +41,7 @@ public class EnemySpawner : MonoBehaviour
     void Start()
     {
         waveName.gameObject.SetActive(true);
-        waveName.text = "Wave 1";
+        // waveCountText.text = "Wave 1";
         waveCountText.text = $"Wave {currentWave + 1} / {totalWaves}";
         StartCoroutine(StartWaves());
     }
@@ -177,16 +177,11 @@ public class EnemySpawner : MonoBehaviour
         isSpawning = true;
         gameManager.blockControl = true; // Block player control during boss spawn
         GameObject randomBossPrefab = bossPrefabs[Random.Range(0, bossPrefabs.Length)];
-        Vector3 spawnPosition = new Vector3(0, 6, 0); // Off-screen top center
-        GameObject boss = Instantiate(
-            randomBossPrefab,
-            spawnPosition,
-            Quaternion.Euler(0, 0, 180f)
-        );
+        Instantiate(randomBossPrefab, new Vector3(0, 2, 0), Quaternion.Euler(0, 0, 180f));
 
         // Optional: add boss movement into scene
-        BossMover bossMover = boss.AddComponent<BossMover>();
-        bossMover.targetPosition = new Vector3(0, 2.5f, 0); // Where boss settles on screen
+        // BossMover bossMover = boss.AddComponent<BossMover>();
+        // bossMover.targetPosition = new Vector3(0, 2.5f, 0); // Where boss settles on screen
         isSpawning = false;
         gameManager.blockControl = false; // Unblock player control after boss spawn
     }
