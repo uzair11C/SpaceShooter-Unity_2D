@@ -30,6 +30,11 @@ public class BulletScript : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        if (gameManager.PlayerHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -63,6 +68,9 @@ public class BulletScript : MonoBehaviour
 
             Destroy(gameObject);
         }
+
+        if (GameObject.FindGameObjectsWithTag("Boss") != null)
+            return;
 
         if (GameObject.FindGameObjectsWithTag("enemy").Length == 0)
         {

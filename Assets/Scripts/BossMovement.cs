@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class BossMovement : MonoBehaviour
 {
-    private float fireRate = 1f;
+    private float fireRate = 2f;
     private float nextFireTime = 0f;
     private EnemySpawner enemySpawner;
+    private GameManager gameManager;
 
     [SerializeField]
     private GameObject[] spawnPoints;
@@ -14,12 +15,13 @@ public class BossMovement : MonoBehaviour
 
     void Awake()
     {
+        gameManager = GameManager.Instance;
         enemySpawner = EnemySpawner.Instance;
-        nextFireTime = fireRate;
     }
 
     void Start()
     {
+        nextFireTime = fireRate;
         Debug.Log("Boss Spawned at: " + transform.position);
     }
 
@@ -28,7 +30,26 @@ public class BossMovement : MonoBehaviour
         Debug.Log("Boss Destroyed");
     }
 
-    void Update() { }
+    void Update()
+    {
+        if (gameManager == null || enemySpawner == null)
+            return;
+        if (gameManager.blockControl)
+            return;
+
+        if (!enemySpawner.isSpawning)
+        {
+            nextFireTime -= Time.deltaTime;
+            if (nextFireTime <= 0f)
+            {
+                foreach (var spawnPoint in spawnPoints)
+                {
+                    FireBullet(spawnPoint, bullet);
+                }
+                nextFireTime = fireRate;
+            }
+        }
+    }
 
     private void FireBullet(GameObject spawnPoint, GameObject bulletPrefab)
     {

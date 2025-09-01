@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    public bool blockControl = false;
+    public bool blockControl = true;
     public float playerMoveSpeed;
     public float playerFireRate;
     public int coinsCollected = 0;
@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     public int _playerHealth = 100;
 
     private UserData userData;
-    private int bossHealth = 250;
+    private int _bossHealth = 250;
     private Slider bulletPowerUpTimer;
 
     [SerializeField]
@@ -28,6 +28,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private GameObject gameOverDialog;
+
+    [SerializeField]
+    private GameObject winDialog;
 
     public int PlayerHealth
     {
@@ -48,17 +51,32 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public int BossHealth
+    {
+        get => _bossHealth;
+        set
+        {
+            if (_bossHealth != value)
+            {
+                _bossHealth = Mathf.Max(0, value); // prevent negative health
+                // UpdateBossHealthBar();
+                if (_bossHealth <= 0)
+                {
+                    Debug.Log("Boss defeated!");
+                    blockControl = true;
+                    winDialog.SetActive(true);
+                    Time.timeScale = 0f; // Pause the game
+                }
+            }
+        }
+    }
+
     void Awake()
     {
         if (Instance == null)
-        {
             Instance = this;
-            // DontDestroyOnLoad(gameObject);
-        }
         else
-        {
             Destroy(gameObject);
-        }
 
         if (PlayerPrefs.HasKey("SpaceShooter_UserData"))
         {

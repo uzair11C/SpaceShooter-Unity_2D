@@ -29,6 +29,9 @@ public class EnemyBulletScript : MonoBehaviour
             Destroy(gameObject);
         }
 
+        if (GameObject.FindGameObjectsWithTag("Boss") != null)
+            return;
+
         if (GameObject.FindGameObjectsWithTag("enemy").Length == 0)
         {
             Destroy(gameObject);

@@ -36,6 +36,12 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (gameManager.blockControl)
+        {
+            Debug.Log("Control Blocked");
+            return;
+        }
+
 #if UNITY_EDITOR
         if (Input.GetMouseButton(0))
         {
@@ -45,16 +51,13 @@ public class PlayerController : MonoBehaviour
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
-            UpdateTouchPosition(touch);
+            UpdateTouchPosition(touch.position);
         }
 #endif
     }
 
     private void UpdateTouchPosition(Vector3 position)
     {
-        if (gameManager.blockControl)
-            return;
-
         Vector3 touchPosition = Camera.main.ScreenToWorldPoint(position);
         touchPosition.z = 0f;
         Vector3 targetPosition = Vector3.Lerp(

@@ -91,9 +91,8 @@ public class EnemySpawner : MonoBehaviour
 
     public void SpawnArcWave(int enemyCount, float xSpacing)
     {
-        gameManager.blockControl = true; // Block player control during spawn
-
         isSpawning = true;
+        gameManager.blockControl = true;
 
         isGridPattern = false; // Reset grid pattern flag
 
@@ -126,8 +125,8 @@ public class EnemySpawner : MonoBehaviour
             EnemyPathFollower follower = enemy.GetComponent<EnemyPathFollower>();
             follower.pathPoints = pathPoints;
         }
-        gameManager.blockControl = false; // Unblock player control after spawn
         isSpawning = false;
+        gameManager.blockControl = false;
     }
 
     public void SpawnGridPattern()
@@ -168,21 +167,22 @@ public class EnemySpawner : MonoBehaviour
             }
         }
         isSpawning = false;
-        gameManager.blockControl = false; // Unblock player control after spawn
     }
 
     private void SpawnBoss()
     {
         waveName.gameObject.SetActive(false);
         isSpawning = true;
-        gameManager.blockControl = true; // Block player control during boss spawn
         GameObject randomBossPrefab = bossPrefabs[Random.Range(0, bossPrefabs.Length)];
-        Instantiate(randomBossPrefab, new Vector3(0, 2, 0), Quaternion.Euler(0, 0, 180f));
+        GameObject boss = Instantiate(
+            randomBossPrefab,
+            new Vector3(0, 6, 0),
+            Quaternion.Euler(0, 0, 180f)
+        );
 
         // Optional: add boss movement into scene
-        // BossMover bossMover = boss.AddComponent<BossMover>();
-        // bossMover.targetPosition = new Vector3(0, 2.5f, 0); // Where boss settles on screen
+        BossMover bossMover = boss.AddComponent<BossMover>();
+        bossMover.targetPosition = new Vector3(0, 2f, 0); // Where boss settles on screen
         isSpawning = false;
-        gameManager.blockControl = false; // Unblock player control after boss spawn
     }
 }
