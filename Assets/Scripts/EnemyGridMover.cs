@@ -21,7 +21,6 @@ public class EnemyGridMover : MonoBehaviour
     {
         if (movingIn)
         {
-            gameManager.blockControl = true;
             transform.position = Vector2.MoveTowards(
                 transform.position,
                 targetPosition,
@@ -32,7 +31,6 @@ public class EnemyGridMover : MonoBehaviour
             {
                 transform.position = targetPosition;
                 movingIn = false; // Stop further movement once reached
-                gameManager.blockControl = false;
             }
         }
     }

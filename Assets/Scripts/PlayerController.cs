@@ -36,12 +36,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (gameManager.blockControl)
-        {
-            Debug.Log("Control Blocked");
-            return;
-        }
-
 #if UNITY_EDITOR
         if (Input.GetMouseButton(0))
         {
@@ -74,7 +68,7 @@ public class PlayerController : MonoBehaviour
 
         nextFireTime -= Time.deltaTime;
 
-        if (nextFireTime <= 0f)
+        if (nextFireTime <= 0f && !gameManager.blockControl)
         {
             foreach (var spawnPoint in spawnPoints)
             {

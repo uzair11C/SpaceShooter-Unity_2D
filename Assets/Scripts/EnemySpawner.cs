@@ -167,10 +167,12 @@ public class EnemySpawner : MonoBehaviour
             }
         }
         isSpawning = false;
+        gameManager.blockControl = false;
     }
 
     private void SpawnBoss()
     {
+        gameManager.blockControl = true;
         waveName.gameObject.SetActive(false);
         isSpawning = true;
         GameObject randomBossPrefab = bossPrefabs[Random.Range(0, bossPrefabs.Length)];
@@ -184,5 +186,6 @@ public class EnemySpawner : MonoBehaviour
         BossMover bossMover = boss.AddComponent<BossMover>();
         bossMover.targetPosition = new Vector3(0, 2f, 0); // Where boss settles on screen
         isSpawning = false;
+        gameManager.blockControl = false;
     }
 }
