@@ -15,11 +15,16 @@ public class BulletScript : MonoBehaviour
     private GameObject[] collectables;
 
     private GameManager gameManager;
+    private EnemySpawner enemySpawner;
+
+    void Awake()
+    {
+        gameManager = GameManager.Instance;
+        enemySpawner = EnemySpawner.Instance;
+    }
 
     void Start()
     {
-        gameManager = GameManager.Instance;
-
         rb.velocity = Vector2.up * 8f;
     }
 
@@ -67,6 +72,41 @@ public class BulletScript : MonoBehaviour
             }
 
             Destroy(gameObject);
+        }
+
+        if (collision.CompareTag("Boss"))
+        {
+            if (enemySpawner.isSpawning)
+                return;
+
+            if (Random.value <= 0.88f) // 88% chance to spawn coin
+            {
+                Instantiate(
+                    coinPrefab,
+                    collision.transform.position + Vector3.down * 0.5f,
+                    Quaternion.identity
+                );
+            }
+
+            if (collectables != null && collectables.Length > 0)
+            {
+                int randomChance = Random.Range(1, 101);
+
+                if (randomChance <= 30)
+                {
+                    Instantiate(
+                        collectables[Random.Range(0, collectables.Length)],
+                        collision.transform.position + Vector3.up * 0.5f,
+                        Quaternion.identity
+                    );
+                }
+            }
+
+            gameManager.BossHealth -= damage;
+            if (gameManager.BossHealth <= 0)
+            {
+                Destroy(gameObject);
+            }
         }
 
         if (GameObject.FindGameObjectsWithTag("Boss") != null)
